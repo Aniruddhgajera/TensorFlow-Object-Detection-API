@@ -61,12 +61,12 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
 
 - Line 9. Change num_classes : 3 .
     ```
-    num_classes:3
+    num_classes: 3
     ```
   
 - Line 130. Change num_examples to the number of images in the /images/test directory.
    ```
-    num_examples:100
+    num_examples: 100
    ```
    
 - Line 116. Change num_steps of training steps.
