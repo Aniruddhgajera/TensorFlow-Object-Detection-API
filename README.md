@@ -60,21 +60,29 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
 #### 5b. Configure training
 
 - Line 9. Change num_classes : 3 .
+  ```
+  num_classes:3
+  ```
 
 - Line 106. Change fine_tune_checkpoint to:
-  - fine_tune_checkpoint : "./faster_rcnn_inception_v2_coco_2018_01_28/model.ckpt"
+   ```
+   fine_tune_checkpoint : "./faster_rcnn_inception_v2_coco_2018_01_28/model.ckpt"
+   ```
 
 - Lines 123 and 125. change input_path and label_map_path to:
-  - input_path : "./train.record"
-  - label_map_path: "./training/labelmap.pbtxt"
-
+   ```
+   input_path : "./train.record"
+   label_map_path: "./training/labelmap.pbtxt" 
+   ```
 - Line 130. Change num_examples to the number of images in the /images/test directory.
-
+   ```
+   num_examples:100
+   ```
 - Lines 135 and 137. Change input_path and label_map_path to:
-  - input_path : "./test.record"
-  - label_map_path: "./training/labelmap.pbtxt"
-
-
+  ```
+  input_path : "./test.record"
+  label_map_path: "./training/labelmap.pbtxt"
+  ```
 
 ### 6. Run the Training
 **UPDATE 9/26/18:** 
