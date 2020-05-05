@@ -2,58 +2,58 @@
 ### Setup tensoflow MODELS
 #### Install neccessary python modules
 ```
-    sudo apt-get install protobuf-compiler python-pil python-lxml python-tk 
-    conda install tensorflow-gpu==1.14
-    pip install Cython contextlib2 jupyter matplotlib cython pycocotools
+sudo apt-get install protobuf-compiler python-pil python-lxml python-tk 
+conda install tensorflow-gpu==1.14
+pip install Cython contextlib2 jupyter matplotlib cython pycocotools
 ```
 #### Install tensorflow object detection API
 ```
-    wget https://github.com/tensorflow/models/archive/v1.13.0.zip
-    unzip v1.13.0.zip 
-    mv models-1.13.0 models
-    cd models/research
-    protoc object_detection/protos/*.proto --python_out=.
-    cd ../..
-    export PYTHONPATH=$PYTHONPATH:$PWD/models/research/:$PWD/models/research/slim
+wget https://github.com/tensorflow/models/archive/v1.13.0.zip
+unzip v1.13.0.zip 
+mv models-1.13.0 models
+cd models/research
+protoc object_detection/protos/*.proto --python_out=.
+cd ../..
+export PYTHONPATH=$PYTHONPATH:$PWD/models/research/:$PWD/models/research/slim
 ```
 ### Configure Training Data
 #### Download pretrained model to finetune
 ```
-    wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
-    tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz 
-    rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz 
+rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 ```
 #### Convert xml annotations to csv: 
 ```
-    python xml_to_csv.py
+python xml_to_csv.py
 ```
 #### Edit generate_tfrecord.py  
 ```
-    def class_text_to_int(row_label):
-        if row_label == 'basketball':
-            return 1
-        elif row_label == 'shirt':
-            return 2
-        else:
-            None
+def class_text_to_int(row_label):
+    if row_label == 'basketball':
+        return 1
+    elif row_label == 'shirt':
+        return 2
+    else:
+        None
 ```
 #### Edit training/labelmap.pbtxt
 ```
-    item {
-      id: 1
-      name: 'basketball'
-    }
+item {
+  id: 1
+  name: 'basketball'
+}
 
-    item {
-      id: 2
-      name: 'shirt'
-    }
+item {
+  id: 2
+  name: 'shirt'
+}
 ```
 
 #### Generate TFRecords:
 ```
-    python generate_tfrecord.py --csv_input=images/train_labels.csv --image_dir=images/train --output_path=train.record
-    python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=images/test --output_path=test.record
+python generate_tfrecord.py --csv_input=images/train_labels.csv --image_dir=images/train --output_path=train.record
+python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=images/test --output_path=test.record
 ```
 
 
@@ -90,12 +90,12 @@
 
 #### Command:
 ```
-    python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
+python train.py --logtostderr --train_dir=training/ --pipeline_config_path=training/faster_rcnn_inception_v2_pets.config
 ```
 
 #### Tensorboard command:
 ```
-    tensorboard --logdir=training
+tensorboard --logdir=training
 ```
 
 ### Export Inference Graph
@@ -103,5 +103,5 @@
 ##### Remove inference_graph folder if exists
 ##### Replace XXXX with ckpt number
 ```
-    python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
+python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
 ```
