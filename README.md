@@ -99,7 +99,6 @@ tensorboard --logdir=training
 ```
 
 ### Export Inference Graph
-
 ###### Remove inference_graph folder if exists
 ###### Replace XXXX with ckpt number
 
