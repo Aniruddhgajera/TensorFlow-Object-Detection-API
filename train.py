@@ -45,6 +45,7 @@ import functools
 import json
 import os
 import tensorflow as tf
+from etc_utils import generate_config
 
 from object_detection.builders import dataset_builder
 from object_detection.builders import graph_rewriter_builder
@@ -67,10 +68,10 @@ flags.DEFINE_integer('worker_replicas', 1, 'Number of worker+trainer '
 flags.DEFINE_integer('ps_tasks', 0,
                      'Number of parameter server tasks. If None, does not use '
                      'a parameter server.')
-flags.DEFINE_string('train_dir', '',
+flags.DEFINE_string('train_dir', 'training/',
                     'Directory to save the checkpoints and training summaries.')
 
-flags.DEFINE_string('pipeline_config_path', '',
+flags.DEFINE_string('pipeline_config_path', 'training/faster_rcnn_inception_v2_pets.config',
                     'Path to a pipeline_pb2.TrainEvalPipelineConfig config '
                     'file. If provided, other configs are ignored')
 
@@ -83,6 +84,7 @@ flags.DEFINE_string('model_config_path', '',
 
 FLAGS = flags.FLAGS
 
+generate_config()
 
 @tf.contrib.framework.deprecated(None, 'Use object_detection/model_main.py.')
 def main(_):
