@@ -68,6 +68,12 @@ python generate_tfrecord.py --csv_input=images/test_labels.csv --image_dir=image
    ```
     num_examples:100
    ```
+   
+- Line 116. Change num_steps of training steps.
+   ```
+    num_steps: 200000
+   ```
+
 #### Change below paths if any error comes
 - Line 106. Change fine_tune_checkpoint to:
    ```
