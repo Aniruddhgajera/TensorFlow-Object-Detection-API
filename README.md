@@ -99,9 +99,11 @@ tensorboard --logdir=training
 ```
 
 ### Export Inference Graph
-#### command
+
 ###### Remove inference_graph folder if exists
 ###### Replace XXXX with ckpt number
+
+#### command
 ```
 python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/faster_rcnn_inception_v2_pets.config --trained_checkpoint_prefix training/model.ckpt-XXXX --output_directory inference_graph
 ```
