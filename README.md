@@ -17,7 +17,12 @@ cd ../..
 export PYTHONPATH=$PYTHONPATH:$PWD/models/research/:$PWD/models/research/slim
 ```
 ### Configure Training Data
-
+#### Download pretrained model to finetune
+```
+wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz 
+rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+```
 #### Convert xml annotations to csv: 
 ```
 python xml_to_csv.py
